@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultimate Unit Converter</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.16), transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(168, 85, 247, 0.16), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.14), transparent 30%),
+        linear-gradient(135deg, #020617 0%, #0f172a 45%, #111827 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .glow-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .glow-btn::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(90deg, #38bdf8, #a855f7, #ec4899, #38bdf8);
+      background-size: 300% 100%;
+      animation: borderFlow 6s linear infinite;
+      z-index: 0;
+      opacity: 0.9;
+    }
+
+    .glow-btn > span {
+      position: relative;
+      z-index: 1;
+      display: block;
+      background: rgba(15, 23, 42, 0.94);
+      border-radius: inherit;
+    }
+
+    .float-orb {
+      animation: floatOrb 6s ease-in-out infinite;
+    }
+
+    .fade-up {
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .pulse-soft {
+      animation: pulseSoft 2.4s ease-in-out infinite;
+    }
+
+    .hidden-section {
+      display: none;
+    }
+
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.15));
+    }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-18px) translateX(8px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulseSoft {
+      0%, 100% { box-shadow: 0 0 0 rgba(56, 189, 248, 0); }
+      50% { box-shadow: 0 0 30px rgba(56, 189, 248, 0.2); }
+    }
+
+    @keyframes borderFlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+  </style>
+</head>
+<body class="text-white selection:bg-cyan-400 selection:text-slate-950">
+  <div class="fixed inset-0 -z-10 hero-grid"></div>
+
+  <div class="fixed top-20 left-10 h-40 w-40 rounded-full bg-cyan-400/20 blur-3xl float-orb"></div>
+  <div class="fixed top-32 right-10 h-52 w-52 rounded-full bg-fuchsia-500/20 blur-3xl float-orb" style="animation-delay: 1.4s;"></div>
+  <div class="fixed bottom-10 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-pink-500/15 blur-3xl float-orb" style="animation-delay: 2.4s;"></div>
+
+  <main class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <section class="fade-up grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-cyan-200 shadow-lg">
+          <span class="inline-block h-2.5 w-2.5 rounded-full bg-emerald-400 pulse-soft"></span>
+          Smart Converter Interface
+        </div>
+
+        <div class="space-y-4">
+          <h1 class="text-4xl font-black leading-tight sm:text-5xl lg:text-7xl">
+            Convert
+            <span class="bg-gradient-to-r from-cyan-300 via-violet-300 to-pink-300 bg-clip-text text-transparent">
+              Anything
+            </span>
+            Like a Beast
+          </h1>
+          <p class="max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+            Temperature, height, and weight — wrapped in a futuristic glassmorphism UI with smooth animation,
+            responsive layout, and enough glow to make your old HTML cry a little.
+          </p>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-3">
+          <div class="glass rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Modes</p>
+            <p class="mt-2 text-2xl font-bold text-cyan-300">3</p>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Responsive</p>
+            <p class="mt-2 text-2xl font-bold text-violet-300">100%</p>
+          </div>
+          <div class="glass rounded-2xl p-4">
+            <p class="text-sm text-slate-400">Vibe Level</p>
+            <p class="mt-2 text-2xl font-bold text-pink-300">MAX</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-in">
+        <div class="glass rounded-[2rem] p-4 sm:p-6 lg:p-8">
+          <div class="mb-6 flex flex-col gap-3 sm:flex-row">
+            <button class="tab-btn glow-btn w-full rounded-2xl p-[1px] text-sm font-semibold tracking-wide" data-target="temperature">
+              <span class="rounded-2xl px-5 py-3">🌡️ Temperature</span>
+            </button>
+            <button class="tab-btn w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold tracking-wide text-slate-200 transition hover:bg-white/10" data-target="height">
+              📏 Height
+            </button>
+            <button class="tab-btn w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold tracking-wide text-slate-200 transition hover:bg-white/10" data-target="weight">
+              ⚖️ Weight
+            </button>
+          </div>
+
+          <!-- TEMPERATURE -->
+          <section id="temperature" class="converter-section fade-up">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-cyan-300">Temperature Converter</h2>
+              <p class="mt-2 text-sm text-slate-400">Switch between Celsius, Fahrenheit, and Kelvin without nonsense.</p>
+            </div>
+
+            <form action="/temp" method="post" class="space-y-5">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                  <label class="mb-2 block text-sm font-medium text-slate-300">Enter temperature</label>
+                  <input
+                    type="number"
+                    step="any"
+                    name="temp_input"
+                    placeholder="e.g. 37.5"
+                    class="w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
+                  />
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-slate-300">From</label>
+                  <select
+                    class="tempUnit w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
+                    name="tempUnit"
+                  >
+                    <option value="0">-- select unit --</option>
+                    <option value="celsius" {% if tempUnit == "celsius" %}selected{% endif %}>Celsius</option>
+                    <option value="fahrenheit" {% if tempUnit == "fahrenheit" %}selected{% endif %}>Fahrenheit</option>
+                    <option value="kelvin" {% if tempUnit == "kelvin" %}selected{% endif %}>Kelvin</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-slate-300">To</label>
+                  <select
+                    class="toConvert w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
+                    name="toConvert"
+                    id="toConvert"
+                  >
+                    <option value="0">-- select unit --</option>
+                    <option value="celsius" {% if toConvert == "celsius" %}selected{% endif %}>Celsius</option>
+                    <option value="fahrenheit" {% if toConvert == "fahrenheit" %}selected{% endif %}>Fahrenheit</option>
+                    <option value="kelvin" {% if toConvert == "kelvin" %}selected{% endif %}>Kelvin</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="glow-btn w-full rounded-2xl p-[1px] font-semibold tracking-wide"
+              >
+                <span class="rounded-2xl px-5 py-3 text-white">Convert Temperature ✨</span>
+              </button>
+            </form>
+
+            {% if result %}
+            <div class="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4 text-cyan-100 shadow-lg shadow-cyan-500/10">
+              <p class="text-sm uppercase tracking-[0.2em] text-cyan-300">Result</p>
+              <p class="mt-2 text-2xl font-bold">{{ result }}</p>
+            </div>
+            {% endif %}
+          </section>
+
+          <!-- HEIGHT -->
+          <section id="height" class="converter-section {% if active != 'height' %}hidden-section{% endif %}">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-violet-300">Height Converter</h2>
+              <p class="mt-2 text-sm text-slate-400">Meters, feet, inches. Clean and simple. Old-school useful.</p>
+            </div>
+
+            <form action="/height" method="post" class="space-y-5">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                  <label class="mb-2 block text-sm font-medium text-slate-300">Enter height</label>
+                  <input
+                    type="number"
+                    step="any"
+                    name="height_input"
+                    placeholder="e.g. 5.9"
+                    class="w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-violet-400/60 focus:ring-2 focus:ring-violet-400/20"
+                  />
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-slate-300">From</label>
+                  <select
+                    class="heightUnit w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-violet-400/60 focus:ring-2 focus:ring-violet-400/20"
+                    name="heightUnit"
+                  >
+                    <option value="0">-- select unit --</option>
+                    <option value="meter" {% if heightUnit == "meter" %}selected{% endif %}>Meter</option>
+                    <option value="feet" {% if heightUnit == "feet" %}selected{% endif %}>Feet</option>
+                    <option value="inch" {% if heightUnit == "inch" %}selected{% endif %}>Inch</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-slate-300">To</label>
+                  <select
+                    class="heightToConvert w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-violet-400/60 focus:ring-2 focus:ring-violet-400/20"
+                    name="heightToConvert"
+                  >
+                    <option value="0">-- select unit --</option>
+                    <option value="meter" {% if heightToConvert == "meter" %}selected{% endif %}>Meter</option>
+                    <option value="feet" {% if heightToConvert == "feet" %}selected{% endif %}>Feet</option>
+                    <option value="inch" {% if heightToConvert == "inch" %}selected{% endif %}>Inch</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full rounded-2xl border border-violet-400/30 bg-violet-500/15 px-5 py-3 font-semibold tracking-wide text-violet-100 transition hover:bg-violet-500/25"
+              >
+                Convert Height 📐
+              </button>
+            </form>
+
+            {% if resultHeight %}
+            <div class="mt-6 rounded-2xl border border-violet-400/20 bg-violet-400/10 p-4 text-violet-100 shadow-lg shadow-violet-500/10">
+              <p class="text-sm uppercase tracking-[0.2em] text-violet-300">Result</p>
+              <p class="mt-2 text-2xl font-bold">{{ resultHeight }}</p>
+            </div>
+            {% endif %}
+          </section>
+
+          <!-- WEIGHT -->
+          <section id="weight" class="converter-section {% if active != 'weight' %}hidden-section{% endif %}">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-pink-300">Weight Converter</h2>
+              <p class="mt-2 text-sm text-slate-400">Kilogram, pound, gram. Keep the units consistent and life stays peaceful.</p>
+            </div>
+
+            <form action="/weight" method="post" class="space-y-5">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                  <label class="mb-2 block text-sm font-medium text-slate-300">Enter weight</label>
+                  <input
+                    type="number"
+                    step="any"
+                    name="weight_input"
+                    placeholder="e.g. 72"
+                    class="w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-pink-400/60 focus:ring-2 focus:ring-pink-400/20"
+                  />
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-slate-300">From</label>
+                  <select
+                    class="weightUnit w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-pink-400/60 focus:ring-2 focus:ring-pink-400/20"
+                    name="weightUnit"
+                  >
+                    <option value="0">-- select unit --</option>
+                    <option value="kg" {% if weightUnit == "kg" %}selected{% endif %}>Kilogram</option>
+                    <option value="pound" {% if weightUnit == "pound" %}selected{% endif %}>Pound</option>
+                    <option value="gram" {% if weightUnit == "gram" %}selected{% endif %}>Gram</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-slate-300">To</label>
+                  <select
+                    class="weightToConvert w-full rounded-2xl border border-white/10 bg-slate-950/50 px-4 py-3 text-white outline-none transition focus:border-pink-400/60 focus:ring-2 focus:ring-pink-400/20"
+                    name="weightToConvert"
+                  >
+                    <option value="0">-- select unit --</option>
+                    <option value="kg" {% if weightToConvert == "kg" %}selected{% endif %}>Kilogram</option>
+                    <option value="pound" {% if weightToConvert == "pound" %}selected{% endif %}>Pound</option>
+                    <option value="gram" {% if weightToConvert == "gram" %}selected{% endif %}>Gram</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full rounded-2xl border border-pink-400/30 bg-pink-500/15 px-5 py-3 font-semibold tracking-wide text-pink-100 transition hover:bg-pink-500/25"
+              >
+                Convert Weight 🪶
+              </button>
+            </form>
+
+            {% if resultWeight %}
+            <div class="mt-6 rounded-2xl border border-pink-400/20 bg-pink-400/10 p-4 text-pink-100 shadow-lg shadow-pink-500/10">
+              <p class="text-sm uppercase tracking-[0.2em] text-pink-300">Result</p>
+              <p class="mt-2 text-2xl font-bold">{{ resultWeight }}</p>
+            </div>
+            {% endif %}
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const sections = document.querySelectorAll(".converter-section");
+
+    function activateTab(targetId) {
+      sections.forEach(section => {
+        section.classList.add("hidden-section");
+      });
+
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        targetSection.classList.remove("hidden-section");
+        targetSection.classList.add("fade-up");
+        setTimeout(() => targetSection.classList.remove("fade-up"), 700);
+      }
+
+      tabButtons.forEach(btn => {
+        btn.classList.remove("glow-btn");
+        btn.classList.add("border", "border-white/10", "bg-white/5", "text-slate-200");
+        btn.innerHTML = `<span class="rounded-2xl px-5 py-3">${btn.textContent.trim()}</span>`;
+      });
+
+      const activeBtn = document.querySelector(`[data-target="${targetId}"]`);
+      if (activeBtn) {
+        activeBtn.classList.add("glow-btn");
+        activeBtn.classList.remove("border", "border-white/10", "bg-white/5", "text-slate-200");
+        activeBtn.innerHTML = `<span class="rounded-2xl px-5 py-3">${activeBtn.textContent.trim()}</span>`;
+      }
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        activateTab(btn.dataset.target);
+      });
+    });
+
+    const tempUnit = document.querySelector(".tempUnit");
+    const toConvert = document.querySelector(".toConvert");
+
+    function updateTempOptions() {
+      if (!tempUnit || !toConvert) return;
+
+      const selected = tempUnit.value;
+
+      Array.from(toConvert.options).forEach(opt => {
+        opt.hidden = false;
+      });
+
+      if (selected !== "0") {
+        const sameOption = toConvert.querySelector(`option[value="${selected}"]`);
+        if (sameOption) sameOption.hidden = true;
+      }
+    }
+
+    updateTempOptions();
+
+    if (tempUnit) {
+      tempUnit.addEventListener("change", updateTempOptions);
+    }
+
+    const activeFromServer = `{{ active or 'temperature' }}`;
+    activateTab(activeFromServer);
+  </script>
+</body>
+</html>
